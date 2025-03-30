@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Marks Calculator</title>
+    <style>
+        body {
+            background-color: black;
+            color: orange;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 0 15px 5px rgba(255, 165, 0, 0.8), 
+                        0 0 20px 10px rgba(255, 0, 255, 0.4),
+                        0 0 30px 15px rgba(255, 165, 0, 0.2); /* Two colors for the neon glow */
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+        button i {
+            margin-right: 8px; /* Space between icon and text */
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .info-text {
+            color: #9C9C9C; /* Light gray to suit dark theme */
+            font-size: 14px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- For the calculator icon -->
+</head>
+<body>
+    <div class="container">
+        <h2>Agri Marks Calculator</h2>
+        <p>SSC Total Marks (Max: 1050)</p>
+        <input type="number" id="sscMarks" placeholder="Enter SSC Marks" max="1050" min="0">
+        <p class="info-text">(Without 4th subject, Physical Education, Career Education)</p> <!-- Added additional text for SSC -->
+        
+        <p>HSC Total Marks (Max: 1100)</p>
+        <input type="number" id="hscMarks" placeholder="Enter HSC Marks" max="1100" min="0">
+        <p class="info-text">(Without 4th subject)</p> <!-- Added additional text for HSC -->
+        
+        <button onclick="calculateMarks()">
+            <i class="fas fa-calculator"></i> Calculate
+        </button>
+        
+        <p class="result" id="result">Result: 0</p>
+    </div>
+
+    <script>
+    function calculateMarks() {
+        let sscMarks = parseFloat(document.getElementById('sscMarks').value) || 0;
+        let hscMarks = parseFloat(document.getElementById('hscMarks').value) || 0;
+
+        // Validation to check for maximum marks
+        if (sscMarks < 0 || hscMarks < 0) {
+            alert('Marks cannot be negative!');
+            return;
+        }
+        
+        if (sscMarks > 1050 || hscMarks > 1100) {
+            alert('Marks cannot exceed maximum limits!');
+            return;
+        }
+
+        // Calculate scores out of 50
+        let sscScore = (sscMarks / 1050) * 25;
+        let hscScore = (hscMarks / 1100) * 25;
+        let totalScore = sscScore + hscScore;
+        
+        // Update the result, now out of 50
+        document.getElementById('result').innerHTML = 'Result: ' + totalScore.toFixed(2) + ' / 50';
+    }
+    </script>
+</body>
+</html>
